@@ -1,0 +1,15 @@
+scalar DateTime
+
+type Query {
+  community(id: ID!): Community
+  communities: [Community!]!
+}
+
+type Mutation {
+  createCommunity(name: String!): Community!
+}
+
+type Community {
+  id: ID!
+  name: String!
+}
