@@ -48,7 +48,9 @@ type Subscription {
 
 type User {
   id: ID!
+  uid: String!
   name: String!
+  picture: String
 }
 
 type UserConnection {
@@ -58,7 +60,9 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  uid: String!
   name: String!
+  picture: String
 }
 
 type UserEdge {
@@ -69,8 +73,12 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  uid_ASC
+  uid_DESC
   name_ASC
   name_DESC
+  picture_ASC
+  picture_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -79,7 +87,9 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  uid: String!
   name: String!
+  picture: String
 }
 
 type UserSubscriptionPayload {
@@ -101,11 +111,15 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
+  uid: String
   name: String
+  picture: String
 }
 
 input UserUpdateManyMutationInput {
+  uid: String
   name: String
+  picture: String
 }
 
 input UserWhereInput {
@@ -123,6 +137,20 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  uid: String
+  uid_not: String
+  uid_in: [String!]
+  uid_not_in: [String!]
+  uid_lt: String
+  uid_lte: String
+  uid_gt: String
+  uid_gte: String
+  uid_contains: String
+  uid_not_contains: String
+  uid_starts_with: String
+  uid_not_starts_with: String
+  uid_ends_with: String
+  uid_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -137,6 +165,20 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  picture: String
+  picture_not: String
+  picture_in: [String!]
+  picture_not_in: [String!]
+  picture_lt: String
+  picture_lte: String
+  picture_gt: String
+  picture_gte: String
+  picture_contains: String
+  picture_not_contains: String
+  picture_starts_with: String
+  picture_not_starts_with: String
+  picture_ends_with: String
+  picture_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -144,6 +186,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  uid: String
 }
 `
       }

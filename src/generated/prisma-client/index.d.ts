@@ -106,8 +106,12 @@ export interface ClientConstructor<T> {
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "uid_ASC"
+  | "uid_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "picture_ASC"
+  | "picture_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -116,15 +120,21 @@ export type UserOrderByInput =
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export interface UserCreateInput {
+  uid: String;
   name: String;
+  picture?: String;
 }
 
 export interface UserUpdateInput {
+  uid?: String;
   name?: String;
+  picture?: String;
 }
 
 export interface UserUpdateManyMutationInput {
+  uid?: String;
   name?: String;
+  picture?: String;
 }
 
 export interface UserWhereInput {
@@ -142,6 +152,20 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
   name?: String;
   name_not?: String;
   name_in?: String[] | String;
@@ -156,6 +180,20 @@ export interface UserWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  picture?: String;
+  picture_not?: String;
+  picture_in?: String[] | String;
+  picture_not_in?: String[] | String;
+  picture_lt?: String;
+  picture_lte?: String;
+  picture_gt?: String;
+  picture_gte?: String;
+  picture_contains?: String;
+  picture_not_contains?: String;
+  picture_starts_with?: String;
+  picture_not_starts_with?: String;
+  picture_ends_with?: String;
+  picture_not_ends_with?: String;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
@@ -174,6 +212,7 @@ export interface UserSubscriptionWhereInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  uid?: String;
 }>;
 
 export interface NodeNode {
@@ -214,21 +253,27 @@ export interface BatchPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
+  uid: String;
   name: String;
+  picture?: String;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
   name: () => Promise<String>;
+  picture: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  picture: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -275,19 +320,25 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface User {
   id: ID_Output;
+  uid: String;
   name: String;
+  picture?: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
   name: () => Promise<String>;
+  picture: () => Promise<String>;
 }
 
 export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  picture: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnection {
