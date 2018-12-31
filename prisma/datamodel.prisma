@@ -15,37 +15,43 @@ type User {
 type Community {
   id: ID! @unique
   name: String! @unique
+  communityOwners: [CommunityOwner!]!
+  events: [Event!]!
 }
 
 type CommunityOwner {
   id: ID! @unique
+  community: Community!
   user: User!
 }
 
 type Event {
   id: ID! @unique
-  community: Community!
   name: String!
   description: String
   openedAt: DateTime!
   closedAt: DateTime!
+  community: Community!
+  ticketTypes: [TicketType!]!
 }
 
 type TicketType {
   id: ID! @unique
-  event: Event!
   name: String!
   registrationCapacity: Int!
   registrationFee: Int!
   registrationOpenedAt: DateTime!
   registrationClosedAt: DateTime!
+  event: Event!
+  participants: [Participant!]!
 }
 
 type Participant {
   id: ID! @unique
+  status: ParticipantStatus!
   ticketType: TicketType!
   user: User!
-  status: ParticipantStatus!
+  checkIn: CheckIn
 }
 
 type CheckIn {

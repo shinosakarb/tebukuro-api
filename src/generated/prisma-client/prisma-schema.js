@@ -43,7 +43,11 @@ type CheckInConnection {
 }
 
 input CheckInCreateInput {
-  participant: ParticipantCreateOneInput!
+  participant: ParticipantCreateOneWithoutCheckInInput!
+}
+
+input CheckInCreateOneWithoutParticipantInput {
+  connect: CheckInWhereUniqueInput
 }
 
 type CheckInEdge {
@@ -83,7 +87,13 @@ input CheckInSubscriptionWhereInput {
 }
 
 input CheckInUpdateInput {
-  participant: ParticipantUpdateOneRequiredInput
+  participant: ParticipantUpdateOneRequiredWithoutCheckInInput
+}
+
+input CheckInUpdateOneWithoutParticipantInput {
+  delete: Boolean
+  disconnect: Boolean
+  connect: CheckInWhereUniqueInput
 }
 
 input CheckInWhereInput {
@@ -114,6 +124,8 @@ input CheckInWhereUniqueInput {
 type Community {
   id: ID!
   name: String!
+  communityOwners(where: CommunityOwnerWhereInput, orderBy: CommunityOwnerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CommunityOwner!]
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
 }
 
 type CommunityConnection {
@@ -124,11 +136,28 @@ type CommunityConnection {
 
 input CommunityCreateInput {
   name: String!
+  communityOwners: CommunityOwnerCreateManyWithoutCommunityInput
+  events: EventCreateManyWithoutCommunityInput
 }
 
-input CommunityCreateOneInput {
-  create: CommunityCreateInput
+input CommunityCreateOneWithoutCommunityOwnersInput {
+  create: CommunityCreateWithoutCommunityOwnersInput
   connect: CommunityWhereUniqueInput
+}
+
+input CommunityCreateOneWithoutEventsInput {
+  create: CommunityCreateWithoutEventsInput
+  connect: CommunityWhereUniqueInput
+}
+
+input CommunityCreateWithoutCommunityOwnersInput {
+  name: String!
+  events: EventCreateManyWithoutCommunityInput
+}
+
+input CommunityCreateWithoutEventsInput {
+  name: String!
+  communityOwners: CommunityOwnerCreateManyWithoutCommunityInput
 }
 
 type CommunityEdge {
@@ -149,6 +178,7 @@ enum CommunityOrderByInput {
 
 type CommunityOwner {
   id: ID!
+  community: Community!
   user: User!
 }
 
@@ -159,6 +189,16 @@ type CommunityOwnerConnection {
 }
 
 input CommunityOwnerCreateInput {
+  community: CommunityCreateOneWithoutCommunityOwnersInput!
+  user: UserCreateOneInput!
+}
+
+input CommunityOwnerCreateManyWithoutCommunityInput {
+  create: [CommunityOwnerCreateWithoutCommunityInput!]
+  connect: [CommunityOwnerWhereUniqueInput!]
+}
+
+input CommunityOwnerCreateWithoutCommunityInput {
   user: UserCreateOneInput!
 }
 
@@ -180,6 +220,26 @@ type CommunityOwnerPreviousValues {
   id: ID!
 }
 
+input CommunityOwnerScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  AND: [CommunityOwnerScalarWhereInput!]
+  OR: [CommunityOwnerScalarWhereInput!]
+  NOT: [CommunityOwnerScalarWhereInput!]
+}
+
 type CommunityOwnerSubscriptionPayload {
   mutation: MutationType!
   node: CommunityOwner
@@ -199,7 +259,33 @@ input CommunityOwnerSubscriptionWhereInput {
 }
 
 input CommunityOwnerUpdateInput {
+  community: CommunityUpdateOneRequiredWithoutCommunityOwnersInput
   user: UserUpdateOneRequiredInput
+}
+
+input CommunityOwnerUpdateManyWithoutCommunityInput {
+  create: [CommunityOwnerCreateWithoutCommunityInput!]
+  delete: [CommunityOwnerWhereUniqueInput!]
+  connect: [CommunityOwnerWhereUniqueInput!]
+  disconnect: [CommunityOwnerWhereUniqueInput!]
+  update: [CommunityOwnerUpdateWithWhereUniqueWithoutCommunityInput!]
+  upsert: [CommunityOwnerUpsertWithWhereUniqueWithoutCommunityInput!]
+  deleteMany: [CommunityOwnerScalarWhereInput!]
+}
+
+input CommunityOwnerUpdateWithoutCommunityDataInput {
+  user: UserUpdateOneRequiredInput
+}
+
+input CommunityOwnerUpdateWithWhereUniqueWithoutCommunityInput {
+  where: CommunityOwnerWhereUniqueInput!
+  data: CommunityOwnerUpdateWithoutCommunityDataInput!
+}
+
+input CommunityOwnerUpsertWithWhereUniqueWithoutCommunityInput {
+  where: CommunityOwnerWhereUniqueInput!
+  update: CommunityOwnerUpdateWithoutCommunityDataInput!
+  create: CommunityOwnerCreateWithoutCommunityInput!
 }
 
 input CommunityOwnerWhereInput {
@@ -217,6 +303,7 @@ input CommunityOwnerWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  community: CommunityWhereInput
   user: UserWhereInput
   AND: [CommunityOwnerWhereInput!]
   OR: [CommunityOwnerWhereInput!]
@@ -250,28 +337,48 @@ input CommunitySubscriptionWhereInput {
   NOT: [CommunitySubscriptionWhereInput!]
 }
 
-input CommunityUpdateDataInput {
-  name: String
-}
-
 input CommunityUpdateInput {
   name: String
+  communityOwners: CommunityOwnerUpdateManyWithoutCommunityInput
+  events: EventUpdateManyWithoutCommunityInput
 }
 
 input CommunityUpdateManyMutationInput {
   name: String
 }
 
-input CommunityUpdateOneRequiredInput {
-  create: CommunityCreateInput
-  update: CommunityUpdateDataInput
-  upsert: CommunityUpsertNestedInput
+input CommunityUpdateOneRequiredWithoutCommunityOwnersInput {
+  create: CommunityCreateWithoutCommunityOwnersInput
+  update: CommunityUpdateWithoutCommunityOwnersDataInput
+  upsert: CommunityUpsertWithoutCommunityOwnersInput
   connect: CommunityWhereUniqueInput
 }
 
-input CommunityUpsertNestedInput {
-  update: CommunityUpdateDataInput!
-  create: CommunityCreateInput!
+input CommunityUpdateOneRequiredWithoutEventsInput {
+  create: CommunityCreateWithoutEventsInput
+  update: CommunityUpdateWithoutEventsDataInput
+  upsert: CommunityUpsertWithoutEventsInput
+  connect: CommunityWhereUniqueInput
+}
+
+input CommunityUpdateWithoutCommunityOwnersDataInput {
+  name: String
+  events: EventUpdateManyWithoutCommunityInput
+}
+
+input CommunityUpdateWithoutEventsDataInput {
+  name: String
+  communityOwners: CommunityOwnerUpdateManyWithoutCommunityInput
+}
+
+input CommunityUpsertWithoutCommunityOwnersInput {
+  update: CommunityUpdateWithoutCommunityOwnersDataInput!
+  create: CommunityCreateWithoutCommunityOwnersInput!
+}
+
+input CommunityUpsertWithoutEventsInput {
+  update: CommunityUpdateWithoutEventsDataInput!
+  create: CommunityCreateWithoutEventsInput!
 }
 
 input CommunityWhereInput {
@@ -303,6 +410,12 @@ input CommunityWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  communityOwners_every: CommunityOwnerWhereInput
+  communityOwners_some: CommunityOwnerWhereInput
+  communityOwners_none: CommunityOwnerWhereInput
+  events_every: EventWhereInput
+  events_some: EventWhereInput
+  events_none: EventWhereInput
   AND: [CommunityWhereInput!]
   OR: [CommunityWhereInput!]
   NOT: [CommunityWhereInput!]
@@ -317,11 +430,12 @@ scalar DateTime
 
 type Event {
   id: ID!
-  community: Community!
   name: String!
   description: String
   openedAt: DateTime!
   closedAt: DateTime!
+  community: Community!
+  ticketTypes(where: TicketTypeWhereInput, orderBy: TicketTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketType!]
 }
 
 type EventConnection {
@@ -331,16 +445,38 @@ type EventConnection {
 }
 
 input EventCreateInput {
-  community: CommunityCreateOneInput!
   name: String!
   description: String
   openedAt: DateTime!
   closedAt: DateTime!
+  community: CommunityCreateOneWithoutEventsInput!
+  ticketTypes: TicketTypeCreateManyWithoutEventInput
 }
 
-input EventCreateOneInput {
-  create: EventCreateInput
+input EventCreateManyWithoutCommunityInput {
+  create: [EventCreateWithoutCommunityInput!]
+  connect: [EventWhereUniqueInput!]
+}
+
+input EventCreateOneWithoutTicketTypesInput {
+  create: EventCreateWithoutTicketTypesInput
   connect: EventWhereUniqueInput
+}
+
+input EventCreateWithoutCommunityInput {
+  name: String!
+  description: String
+  openedAt: DateTime!
+  closedAt: DateTime!
+  ticketTypes: TicketTypeCreateManyWithoutEventInput
+}
+
+input EventCreateWithoutTicketTypesInput {
+  name: String!
+  description: String
+  openedAt: DateTime!
+  closedAt: DateTime!
+  community: CommunityCreateOneWithoutEventsInput!
 }
 
 type EventEdge {
@@ -373,60 +509,7 @@ type EventPreviousValues {
   closedAt: DateTime!
 }
 
-type EventSubscriptionPayload {
-  mutation: MutationType!
-  node: Event
-  updatedFields: [String!]
-  previousValues: EventPreviousValues
-}
-
-input EventSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: EventWhereInput
-  AND: [EventSubscriptionWhereInput!]
-  OR: [EventSubscriptionWhereInput!]
-  NOT: [EventSubscriptionWhereInput!]
-}
-
-input EventUpdateDataInput {
-  community: CommunityUpdateOneRequiredInput
-  name: String
-  description: String
-  openedAt: DateTime
-  closedAt: DateTime
-}
-
-input EventUpdateInput {
-  community: CommunityUpdateOneRequiredInput
-  name: String
-  description: String
-  openedAt: DateTime
-  closedAt: DateTime
-}
-
-input EventUpdateManyMutationInput {
-  name: String
-  description: String
-  openedAt: DateTime
-  closedAt: DateTime
-}
-
-input EventUpdateOneRequiredInput {
-  create: EventCreateInput
-  update: EventUpdateDataInput
-  upsert: EventUpsertNestedInput
-  connect: EventWhereUniqueInput
-}
-
-input EventUpsertNestedInput {
-  update: EventUpdateDataInput!
-  create: EventCreateInput!
-}
-
-input EventWhereInput {
+input EventScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -441,7 +524,6 @@ input EventWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  community: CommunityWhereInput
   name: String
   name_not: String
   name_in: [String!]
@@ -486,6 +568,170 @@ input EventWhereInput {
   closedAt_lte: DateTime
   closedAt_gt: DateTime
   closedAt_gte: DateTime
+  AND: [EventScalarWhereInput!]
+  OR: [EventScalarWhereInput!]
+  NOT: [EventScalarWhereInput!]
+}
+
+type EventSubscriptionPayload {
+  mutation: MutationType!
+  node: Event
+  updatedFields: [String!]
+  previousValues: EventPreviousValues
+}
+
+input EventSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EventWhereInput
+  AND: [EventSubscriptionWhereInput!]
+  OR: [EventSubscriptionWhereInput!]
+  NOT: [EventSubscriptionWhereInput!]
+}
+
+input EventUpdateInput {
+  name: String
+  description: String
+  openedAt: DateTime
+  closedAt: DateTime
+  community: CommunityUpdateOneRequiredWithoutEventsInput
+  ticketTypes: TicketTypeUpdateManyWithoutEventInput
+}
+
+input EventUpdateManyDataInput {
+  name: String
+  description: String
+  openedAt: DateTime
+  closedAt: DateTime
+}
+
+input EventUpdateManyMutationInput {
+  name: String
+  description: String
+  openedAt: DateTime
+  closedAt: DateTime
+}
+
+input EventUpdateManyWithoutCommunityInput {
+  create: [EventCreateWithoutCommunityInput!]
+  delete: [EventWhereUniqueInput!]
+  connect: [EventWhereUniqueInput!]
+  disconnect: [EventWhereUniqueInput!]
+  update: [EventUpdateWithWhereUniqueWithoutCommunityInput!]
+  upsert: [EventUpsertWithWhereUniqueWithoutCommunityInput!]
+  deleteMany: [EventScalarWhereInput!]
+  updateMany: [EventUpdateManyWithWhereNestedInput!]
+}
+
+input EventUpdateManyWithWhereNestedInput {
+  where: EventScalarWhereInput!
+  data: EventUpdateManyDataInput!
+}
+
+input EventUpdateOneRequiredWithoutTicketTypesInput {
+  create: EventCreateWithoutTicketTypesInput
+  update: EventUpdateWithoutTicketTypesDataInput
+  upsert: EventUpsertWithoutTicketTypesInput
+  connect: EventWhereUniqueInput
+}
+
+input EventUpdateWithoutCommunityDataInput {
+  name: String
+  description: String
+  openedAt: DateTime
+  closedAt: DateTime
+  ticketTypes: TicketTypeUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithoutTicketTypesDataInput {
+  name: String
+  description: String
+  openedAt: DateTime
+  closedAt: DateTime
+  community: CommunityUpdateOneRequiredWithoutEventsInput
+}
+
+input EventUpdateWithWhereUniqueWithoutCommunityInput {
+  where: EventWhereUniqueInput!
+  data: EventUpdateWithoutCommunityDataInput!
+}
+
+input EventUpsertWithoutTicketTypesInput {
+  update: EventUpdateWithoutTicketTypesDataInput!
+  create: EventCreateWithoutTicketTypesInput!
+}
+
+input EventUpsertWithWhereUniqueWithoutCommunityInput {
+  where: EventWhereUniqueInput!
+  update: EventUpdateWithoutCommunityDataInput!
+  create: EventCreateWithoutCommunityInput!
+}
+
+input EventWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  openedAt: DateTime
+  openedAt_not: DateTime
+  openedAt_in: [DateTime!]
+  openedAt_not_in: [DateTime!]
+  openedAt_lt: DateTime
+  openedAt_lte: DateTime
+  openedAt_gt: DateTime
+  openedAt_gte: DateTime
+  closedAt: DateTime
+  closedAt_not: DateTime
+  closedAt_in: [DateTime!]
+  closedAt_not_in: [DateTime!]
+  closedAt_lt: DateTime
+  closedAt_lte: DateTime
+  closedAt_gt: DateTime
+  closedAt_gte: DateTime
+  community: CommunityWhereInput
+  ticketTypes_every: TicketTypeWhereInput
+  ticketTypes_some: TicketTypeWhereInput
+  ticketTypes_none: TicketTypeWhereInput
   AND: [EventWhereInput!]
   OR: [EventWhereInput!]
   NOT: [EventWhereInput!]
@@ -559,9 +805,10 @@ type PageInfo {
 
 type Participant {
   id: ID!
+  status: ParticipantStatus!
   ticketType: TicketType!
   user: User!
-  status: ParticipantStatus!
+  checkIn: CheckIn
 }
 
 type ParticipantConnection {
@@ -571,14 +818,32 @@ type ParticipantConnection {
 }
 
 input ParticipantCreateInput {
-  ticketType: TicketTypeCreateOneInput!
-  user: UserCreateOneInput!
   status: ParticipantStatus!
+  ticketType: TicketTypeCreateOneWithoutParticipantsInput!
+  user: UserCreateOneInput!
+  checkIn: CheckInCreateOneWithoutParticipantInput
 }
 
-input ParticipantCreateOneInput {
-  create: ParticipantCreateInput
+input ParticipantCreateManyWithoutTicketTypeInput {
+  create: [ParticipantCreateWithoutTicketTypeInput!]
+  connect: [ParticipantWhereUniqueInput!]
+}
+
+input ParticipantCreateOneWithoutCheckInInput {
+  create: ParticipantCreateWithoutCheckInInput
   connect: ParticipantWhereUniqueInput
+}
+
+input ParticipantCreateWithoutCheckInInput {
+  status: ParticipantStatus!
+  ticketType: TicketTypeCreateOneWithoutParticipantsInput!
+  user: UserCreateOneInput!
+}
+
+input ParticipantCreateWithoutTicketTypeInput {
+  status: ParticipantStatus!
+  user: UserCreateOneInput!
+  checkIn: CheckInCreateOneWithoutParticipantInput
 }
 
 type ParticipantEdge {
@@ -600,6 +865,30 @@ enum ParticipantOrderByInput {
 type ParticipantPreviousValues {
   id: ID!
   status: ParticipantStatus!
+}
+
+input ParticipantScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  status: ParticipantStatus
+  status_not: ParticipantStatus
+  status_in: [ParticipantStatus!]
+  status_not_in: [ParticipantStatus!]
+  AND: [ParticipantScalarWhereInput!]
+  OR: [ParticipantScalarWhereInput!]
+  NOT: [ParticipantScalarWhereInput!]
 }
 
 enum ParticipantStatus {
@@ -627,15 +916,14 @@ input ParticipantSubscriptionWhereInput {
   NOT: [ParticipantSubscriptionWhereInput!]
 }
 
-input ParticipantUpdateDataInput {
-  ticketType: TicketTypeUpdateOneRequiredInput
-  user: UserUpdateOneRequiredInput
+input ParticipantUpdateInput {
   status: ParticipantStatus
+  ticketType: TicketTypeUpdateOneRequiredWithoutParticipantsInput
+  user: UserUpdateOneRequiredInput
+  checkIn: CheckInUpdateOneWithoutParticipantInput
 }
 
-input ParticipantUpdateInput {
-  ticketType: TicketTypeUpdateOneRequiredInput
-  user: UserUpdateOneRequiredInput
+input ParticipantUpdateManyDataInput {
   status: ParticipantStatus
 }
 
@@ -643,16 +931,55 @@ input ParticipantUpdateManyMutationInput {
   status: ParticipantStatus
 }
 
-input ParticipantUpdateOneRequiredInput {
-  create: ParticipantCreateInput
-  update: ParticipantUpdateDataInput
-  upsert: ParticipantUpsertNestedInput
+input ParticipantUpdateManyWithoutTicketTypeInput {
+  create: [ParticipantCreateWithoutTicketTypeInput!]
+  delete: [ParticipantWhereUniqueInput!]
+  connect: [ParticipantWhereUniqueInput!]
+  disconnect: [ParticipantWhereUniqueInput!]
+  update: [ParticipantUpdateWithWhereUniqueWithoutTicketTypeInput!]
+  upsert: [ParticipantUpsertWithWhereUniqueWithoutTicketTypeInput!]
+  deleteMany: [ParticipantScalarWhereInput!]
+  updateMany: [ParticipantUpdateManyWithWhereNestedInput!]
+}
+
+input ParticipantUpdateManyWithWhereNestedInput {
+  where: ParticipantScalarWhereInput!
+  data: ParticipantUpdateManyDataInput!
+}
+
+input ParticipantUpdateOneRequiredWithoutCheckInInput {
+  create: ParticipantCreateWithoutCheckInInput
+  update: ParticipantUpdateWithoutCheckInDataInput
+  upsert: ParticipantUpsertWithoutCheckInInput
   connect: ParticipantWhereUniqueInput
 }
 
-input ParticipantUpsertNestedInput {
-  update: ParticipantUpdateDataInput!
-  create: ParticipantCreateInput!
+input ParticipantUpdateWithoutCheckInDataInput {
+  status: ParticipantStatus
+  ticketType: TicketTypeUpdateOneRequiredWithoutParticipantsInput
+  user: UserUpdateOneRequiredInput
+}
+
+input ParticipantUpdateWithoutTicketTypeDataInput {
+  status: ParticipantStatus
+  user: UserUpdateOneRequiredInput
+  checkIn: CheckInUpdateOneWithoutParticipantInput
+}
+
+input ParticipantUpdateWithWhereUniqueWithoutTicketTypeInput {
+  where: ParticipantWhereUniqueInput!
+  data: ParticipantUpdateWithoutTicketTypeDataInput!
+}
+
+input ParticipantUpsertWithoutCheckInInput {
+  update: ParticipantUpdateWithoutCheckInDataInput!
+  create: ParticipantCreateWithoutCheckInInput!
+}
+
+input ParticipantUpsertWithWhereUniqueWithoutTicketTypeInput {
+  where: ParticipantWhereUniqueInput!
+  update: ParticipantUpdateWithoutTicketTypeDataInput!
+  create: ParticipantCreateWithoutTicketTypeInput!
 }
 
 input ParticipantWhereInput {
@@ -670,12 +997,13 @@ input ParticipantWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  ticketType: TicketTypeWhereInput
-  user: UserWhereInput
   status: ParticipantStatus
   status_not: ParticipantStatus
   status_in: [ParticipantStatus!]
   status_not_in: [ParticipantStatus!]
+  ticketType: TicketTypeWhereInput
+  user: UserWhereInput
+  checkIn: CheckInWhereInput
   AND: [ParticipantWhereInput!]
   OR: [ParticipantWhereInput!]
   NOT: [ParticipantWhereInput!]
@@ -722,12 +1050,13 @@ type Subscription {
 
 type TicketType {
   id: ID!
-  event: Event!
   name: String!
   registrationCapacity: Int!
   registrationFee: Int!
   registrationOpenedAt: DateTime!
   registrationClosedAt: DateTime!
+  event: Event!
+  participants(where: ParticipantWhereInput, orderBy: ParticipantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Participant!]
 }
 
 type TicketTypeConnection {
@@ -737,17 +1066,41 @@ type TicketTypeConnection {
 }
 
 input TicketTypeCreateInput {
-  event: EventCreateOneInput!
   name: String!
   registrationCapacity: Int!
   registrationFee: Int!
   registrationOpenedAt: DateTime!
   registrationClosedAt: DateTime!
+  event: EventCreateOneWithoutTicketTypesInput!
+  participants: ParticipantCreateManyWithoutTicketTypeInput
 }
 
-input TicketTypeCreateOneInput {
-  create: TicketTypeCreateInput
+input TicketTypeCreateManyWithoutEventInput {
+  create: [TicketTypeCreateWithoutEventInput!]
+  connect: [TicketTypeWhereUniqueInput!]
+}
+
+input TicketTypeCreateOneWithoutParticipantsInput {
+  create: TicketTypeCreateWithoutParticipantsInput
   connect: TicketTypeWhereUniqueInput
+}
+
+input TicketTypeCreateWithoutEventInput {
+  name: String!
+  registrationCapacity: Int!
+  registrationFee: Int!
+  registrationOpenedAt: DateTime!
+  registrationClosedAt: DateTime!
+  participants: ParticipantCreateManyWithoutTicketTypeInput
+}
+
+input TicketTypeCreateWithoutParticipantsInput {
+  name: String!
+  registrationCapacity: Int!
+  registrationFee: Int!
+  registrationOpenedAt: DateTime!
+  registrationClosedAt: DateTime!
+  event: EventCreateOneWithoutTicketTypesInput!
 }
 
 type TicketTypeEdge {
@@ -783,63 +1136,7 @@ type TicketTypePreviousValues {
   registrationClosedAt: DateTime!
 }
 
-type TicketTypeSubscriptionPayload {
-  mutation: MutationType!
-  node: TicketType
-  updatedFields: [String!]
-  previousValues: TicketTypePreviousValues
-}
-
-input TicketTypeSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: TicketTypeWhereInput
-  AND: [TicketTypeSubscriptionWhereInput!]
-  OR: [TicketTypeSubscriptionWhereInput!]
-  NOT: [TicketTypeSubscriptionWhereInput!]
-}
-
-input TicketTypeUpdateDataInput {
-  event: EventUpdateOneRequiredInput
-  name: String
-  registrationCapacity: Int
-  registrationFee: Int
-  registrationOpenedAt: DateTime
-  registrationClosedAt: DateTime
-}
-
-input TicketTypeUpdateInput {
-  event: EventUpdateOneRequiredInput
-  name: String
-  registrationCapacity: Int
-  registrationFee: Int
-  registrationOpenedAt: DateTime
-  registrationClosedAt: DateTime
-}
-
-input TicketTypeUpdateManyMutationInput {
-  name: String
-  registrationCapacity: Int
-  registrationFee: Int
-  registrationOpenedAt: DateTime
-  registrationClosedAt: DateTime
-}
-
-input TicketTypeUpdateOneRequiredInput {
-  create: TicketTypeCreateInput
-  update: TicketTypeUpdateDataInput
-  upsert: TicketTypeUpsertNestedInput
-  connect: TicketTypeWhereUniqueInput
-}
-
-input TicketTypeUpsertNestedInput {
-  update: TicketTypeUpdateDataInput!
-  create: TicketTypeCreateInput!
-}
-
-input TicketTypeWhereInput {
+input TicketTypeScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -854,7 +1151,6 @@ input TicketTypeWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  event: EventWhereInput
   name: String
   name_not: String
   name_in: [String!]
@@ -901,6 +1197,177 @@ input TicketTypeWhereInput {
   registrationClosedAt_lte: DateTime
   registrationClosedAt_gt: DateTime
   registrationClosedAt_gte: DateTime
+  AND: [TicketTypeScalarWhereInput!]
+  OR: [TicketTypeScalarWhereInput!]
+  NOT: [TicketTypeScalarWhereInput!]
+}
+
+type TicketTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: TicketType
+  updatedFields: [String!]
+  previousValues: TicketTypePreviousValues
+}
+
+input TicketTypeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TicketTypeWhereInput
+  AND: [TicketTypeSubscriptionWhereInput!]
+  OR: [TicketTypeSubscriptionWhereInput!]
+  NOT: [TicketTypeSubscriptionWhereInput!]
+}
+
+input TicketTypeUpdateInput {
+  name: String
+  registrationCapacity: Int
+  registrationFee: Int
+  registrationOpenedAt: DateTime
+  registrationClosedAt: DateTime
+  event: EventUpdateOneRequiredWithoutTicketTypesInput
+  participants: ParticipantUpdateManyWithoutTicketTypeInput
+}
+
+input TicketTypeUpdateManyDataInput {
+  name: String
+  registrationCapacity: Int
+  registrationFee: Int
+  registrationOpenedAt: DateTime
+  registrationClosedAt: DateTime
+}
+
+input TicketTypeUpdateManyMutationInput {
+  name: String
+  registrationCapacity: Int
+  registrationFee: Int
+  registrationOpenedAt: DateTime
+  registrationClosedAt: DateTime
+}
+
+input TicketTypeUpdateManyWithoutEventInput {
+  create: [TicketTypeCreateWithoutEventInput!]
+  delete: [TicketTypeWhereUniqueInput!]
+  connect: [TicketTypeWhereUniqueInput!]
+  disconnect: [TicketTypeWhereUniqueInput!]
+  update: [TicketTypeUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [TicketTypeUpsertWithWhereUniqueWithoutEventInput!]
+  deleteMany: [TicketTypeScalarWhereInput!]
+  updateMany: [TicketTypeUpdateManyWithWhereNestedInput!]
+}
+
+input TicketTypeUpdateManyWithWhereNestedInput {
+  where: TicketTypeScalarWhereInput!
+  data: TicketTypeUpdateManyDataInput!
+}
+
+input TicketTypeUpdateOneRequiredWithoutParticipantsInput {
+  create: TicketTypeCreateWithoutParticipantsInput
+  update: TicketTypeUpdateWithoutParticipantsDataInput
+  upsert: TicketTypeUpsertWithoutParticipantsInput
+  connect: TicketTypeWhereUniqueInput
+}
+
+input TicketTypeUpdateWithoutEventDataInput {
+  name: String
+  registrationCapacity: Int
+  registrationFee: Int
+  registrationOpenedAt: DateTime
+  registrationClosedAt: DateTime
+  participants: ParticipantUpdateManyWithoutTicketTypeInput
+}
+
+input TicketTypeUpdateWithoutParticipantsDataInput {
+  name: String
+  registrationCapacity: Int
+  registrationFee: Int
+  registrationOpenedAt: DateTime
+  registrationClosedAt: DateTime
+  event: EventUpdateOneRequiredWithoutTicketTypesInput
+}
+
+input TicketTypeUpdateWithWhereUniqueWithoutEventInput {
+  where: TicketTypeWhereUniqueInput!
+  data: TicketTypeUpdateWithoutEventDataInput!
+}
+
+input TicketTypeUpsertWithoutParticipantsInput {
+  update: TicketTypeUpdateWithoutParticipantsDataInput!
+  create: TicketTypeCreateWithoutParticipantsInput!
+}
+
+input TicketTypeUpsertWithWhereUniqueWithoutEventInput {
+  where: TicketTypeWhereUniqueInput!
+  update: TicketTypeUpdateWithoutEventDataInput!
+  create: TicketTypeCreateWithoutEventInput!
+}
+
+input TicketTypeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  registrationCapacity: Int
+  registrationCapacity_not: Int
+  registrationCapacity_in: [Int!]
+  registrationCapacity_not_in: [Int!]
+  registrationCapacity_lt: Int
+  registrationCapacity_lte: Int
+  registrationCapacity_gt: Int
+  registrationCapacity_gte: Int
+  registrationFee: Int
+  registrationFee_not: Int
+  registrationFee_in: [Int!]
+  registrationFee_not_in: [Int!]
+  registrationFee_lt: Int
+  registrationFee_lte: Int
+  registrationFee_gt: Int
+  registrationFee_gte: Int
+  registrationOpenedAt: DateTime
+  registrationOpenedAt_not: DateTime
+  registrationOpenedAt_in: [DateTime!]
+  registrationOpenedAt_not_in: [DateTime!]
+  registrationOpenedAt_lt: DateTime
+  registrationOpenedAt_lte: DateTime
+  registrationOpenedAt_gt: DateTime
+  registrationOpenedAt_gte: DateTime
+  registrationClosedAt: DateTime
+  registrationClosedAt_not: DateTime
+  registrationClosedAt_in: [DateTime!]
+  registrationClosedAt_not_in: [DateTime!]
+  registrationClosedAt_lt: DateTime
+  registrationClosedAt_lte: DateTime
+  registrationClosedAt_gt: DateTime
+  registrationClosedAt_gte: DateTime
+  event: EventWhereInput
+  participants_every: ParticipantWhereInput
+  participants_some: ParticipantWhereInput
+  participants_none: ParticipantWhereInput
   AND: [TicketTypeWhereInput!]
   OR: [TicketTypeWhereInput!]
   NOT: [TicketTypeWhereInput!]
