@@ -1,0 +1,66 @@
+@startuml EntityRelationship
+  entity User {
+    + id : (bigint) [PK]
+    --
+    + uid : (character)
+    + name : (character)
+    picture : (character)
+  }
+
+  entity Community {
+    + id : (bigint) [PK]
+    --
+    + name : (character)
+  }
+
+  entity CommunityOwner {
+    + id : (bigint) [PK]
+    --
+    + community_id : (bigint) [FK]
+    + user_id : (bigint) [FK]
+  }
+
+  entity Event {
+    + id : (bigint) [PK]
+    --
+    + community_id : (bigint) [FK]
+    + name : (character)
+    description : (character)
+    + opened_at : (time)
+    + closed_at : (time)
+  }
+
+  entity TicketType {
+    + id : (bigint) [PK]
+    --
+    + event_id : (bigint) [FK]
+    + name : (character)
+    + registration_capacity : (integer)
+    + registration_fee : (integer)
+    + registration_opened_at : (time)
+    + registration_closed_at : (time)
+  }
+
+  entity Participant {
+    + id : (bigint) [PK]
+    --
+    + ticket_type_id : (bigint) [FK]
+    + user_id : (bigint) [FK]
+    + status : (integer) [0: registered, 1: attending, 2: cancel_waiting, 3: canceled]
+  }
+
+
+  entity CheckIn {
+    + id : (bigint) [PK]
+    --
+    + participant_id : (bigint) [FK]
+  }
+
+  Community ---left--|{ Event
+  Community ---left--|{ CommunityOwner
+  CommunityOwner }|--left--- User
+  Event ---left--|{ TicketType
+  TicketType ---left--|{ Participant
+  Participant ---left--- CheckIn
+  Participant }|--left--- User
+@enduml
