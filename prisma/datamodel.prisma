@@ -1,6 +1,54 @@
+enum ParticipantStatus {
+  REGISTERED,
+  ATTENDING,
+  CANCEL_WAITING,
+  CANCELED
+}
+
 type User {
   id: ID! @unique
   uid: String! @unique
   name: String!
   picture: String
+}
+
+type Community {
+  id: ID! @unique
+  name: String! @unique
+}
+
+type CommunityOwner {
+  id: ID! @unique
+  user: User!
+}
+
+type Event {
+  id: ID! @unique
+  community: Community!
+  name: String!
+  description: String
+  openedAt: DateTime!
+  closedAt: DateTime!
+}
+
+type TicketType {
+  id: ID! @unique
+  event: Event!
+  name: String!
+  registrationCapacity: Int!
+  registrationFee: Int!
+  registrationOpenedAt: DateTime!
+  registrationClosedAt: DateTime!
+}
+
+type Participant {
+  id: ID! @unique
+  ticketType: TicketType!
+  user: User!
+  status: ParticipantStatus!
+}
+
+type CheckIn {
+  id: ID! @unique
+  participant: Participant!
 }

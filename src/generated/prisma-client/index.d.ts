@@ -14,6 +14,12 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
+  checkIn: (where?: CheckInWhereInput) => Promise<boolean>;
+  community: (where?: CommunityWhereInput) => Promise<boolean>;
+  communityOwner: (where?: CommunityOwnerWhereInput) => Promise<boolean>;
+  event: (where?: EventWhereInput) => Promise<boolean>;
+  participant: (where?: ParticipantWhereInput) => Promise<boolean>;
+  ticketType: (where?: TicketTypeWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -36,6 +42,146 @@ export interface Prisma {
    * Queries
    */
 
+  checkIn: (where: CheckInWhereUniqueInput) => CheckInPromise;
+  checkIns: (
+    args?: {
+      where?: CheckInWhereInput;
+      orderBy?: CheckInOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<CheckIn>;
+  checkInsConnection: (
+    args?: {
+      where?: CheckInWhereInput;
+      orderBy?: CheckInOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => CheckInConnectionPromise;
+  community: (where: CommunityWhereUniqueInput) => CommunityPromise;
+  communities: (
+    args?: {
+      where?: CommunityWhereInput;
+      orderBy?: CommunityOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<Community>;
+  communitiesConnection: (
+    args?: {
+      where?: CommunityWhereInput;
+      orderBy?: CommunityOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => CommunityConnectionPromise;
+  communityOwner: (
+    where: CommunityOwnerWhereUniqueInput
+  ) => CommunityOwnerPromise;
+  communityOwners: (
+    args?: {
+      where?: CommunityOwnerWhereInput;
+      orderBy?: CommunityOwnerOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<CommunityOwner>;
+  communityOwnersConnection: (
+    args?: {
+      where?: CommunityOwnerWhereInput;
+      orderBy?: CommunityOwnerOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => CommunityOwnerConnectionPromise;
+  event: (where: EventWhereUniqueInput) => EventPromise;
+  events: (
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<Event>;
+  eventsConnection: (
+    args?: {
+      where?: EventWhereInput;
+      orderBy?: EventOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => EventConnectionPromise;
+  participant: (where: ParticipantWhereUniqueInput) => ParticipantPromise;
+  participants: (
+    args?: {
+      where?: ParticipantWhereInput;
+      orderBy?: ParticipantOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<Participant>;
+  participantsConnection: (
+    args?: {
+      where?: ParticipantWhereInput;
+      orderBy?: ParticipantOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => ParticipantConnectionPromise;
+  ticketType: (where: TicketTypeWhereUniqueInput) => TicketTypePromise;
+  ticketTypes: (
+    args?: {
+      where?: TicketTypeWhereInput;
+      orderBy?: TicketTypeOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<TicketType>;
+  ticketTypesConnection: (
+    args?: {
+      where?: TicketTypeWhereInput;
+      orderBy?: TicketTypeOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => TicketTypeConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (
     args?: {
@@ -65,6 +211,116 @@ export interface Prisma {
    * Mutations
    */
 
+  createCheckIn: (data: CheckInCreateInput) => CheckInPromise;
+  updateCheckIn: (
+    args: { data: CheckInUpdateInput; where: CheckInWhereUniqueInput }
+  ) => CheckInPromise;
+  upsertCheckIn: (
+    args: {
+      where: CheckInWhereUniqueInput;
+      create: CheckInCreateInput;
+      update: CheckInUpdateInput;
+    }
+  ) => CheckInPromise;
+  deleteCheckIn: (where: CheckInWhereUniqueInput) => CheckInPromise;
+  deleteManyCheckIns: (where?: CheckInWhereInput) => BatchPayloadPromise;
+  createCommunity: (data: CommunityCreateInput) => CommunityPromise;
+  updateCommunity: (
+    args: { data: CommunityUpdateInput; where: CommunityWhereUniqueInput }
+  ) => CommunityPromise;
+  updateManyCommunities: (
+    args: {
+      data: CommunityUpdateManyMutationInput;
+      where?: CommunityWhereInput;
+    }
+  ) => BatchPayloadPromise;
+  upsertCommunity: (
+    args: {
+      where: CommunityWhereUniqueInput;
+      create: CommunityCreateInput;
+      update: CommunityUpdateInput;
+    }
+  ) => CommunityPromise;
+  deleteCommunity: (where: CommunityWhereUniqueInput) => CommunityPromise;
+  deleteManyCommunities: (where?: CommunityWhereInput) => BatchPayloadPromise;
+  createCommunityOwner: (
+    data: CommunityOwnerCreateInput
+  ) => CommunityOwnerPromise;
+  updateCommunityOwner: (
+    args: {
+      data: CommunityOwnerUpdateInput;
+      where: CommunityOwnerWhereUniqueInput;
+    }
+  ) => CommunityOwnerPromise;
+  upsertCommunityOwner: (
+    args: {
+      where: CommunityOwnerWhereUniqueInput;
+      create: CommunityOwnerCreateInput;
+      update: CommunityOwnerUpdateInput;
+    }
+  ) => CommunityOwnerPromise;
+  deleteCommunityOwner: (
+    where: CommunityOwnerWhereUniqueInput
+  ) => CommunityOwnerPromise;
+  deleteManyCommunityOwners: (
+    where?: CommunityOwnerWhereInput
+  ) => BatchPayloadPromise;
+  createEvent: (data: EventCreateInput) => EventPromise;
+  updateEvent: (
+    args: { data: EventUpdateInput; where: EventWhereUniqueInput }
+  ) => EventPromise;
+  updateManyEvents: (
+    args: { data: EventUpdateManyMutationInput; where?: EventWhereInput }
+  ) => BatchPayloadPromise;
+  upsertEvent: (
+    args: {
+      where: EventWhereUniqueInput;
+      create: EventCreateInput;
+      update: EventUpdateInput;
+    }
+  ) => EventPromise;
+  deleteEvent: (where: EventWhereUniqueInput) => EventPromise;
+  deleteManyEvents: (where?: EventWhereInput) => BatchPayloadPromise;
+  createParticipant: (data: ParticipantCreateInput) => ParticipantPromise;
+  updateParticipant: (
+    args: { data: ParticipantUpdateInput; where: ParticipantWhereUniqueInput }
+  ) => ParticipantPromise;
+  updateManyParticipants: (
+    args: {
+      data: ParticipantUpdateManyMutationInput;
+      where?: ParticipantWhereInput;
+    }
+  ) => BatchPayloadPromise;
+  upsertParticipant: (
+    args: {
+      where: ParticipantWhereUniqueInput;
+      create: ParticipantCreateInput;
+      update: ParticipantUpdateInput;
+    }
+  ) => ParticipantPromise;
+  deleteParticipant: (where: ParticipantWhereUniqueInput) => ParticipantPromise;
+  deleteManyParticipants: (
+    where?: ParticipantWhereInput
+  ) => BatchPayloadPromise;
+  createTicketType: (data: TicketTypeCreateInput) => TicketTypePromise;
+  updateTicketType: (
+    args: { data: TicketTypeUpdateInput; where: TicketTypeWhereUniqueInput }
+  ) => TicketTypePromise;
+  updateManyTicketTypes: (
+    args: {
+      data: TicketTypeUpdateManyMutationInput;
+      where?: TicketTypeWhereInput;
+    }
+  ) => BatchPayloadPromise;
+  upsertTicketType: (
+    args: {
+      where: TicketTypeWhereUniqueInput;
+      create: TicketTypeCreateInput;
+      update: TicketTypeUpdateInput;
+    }
+  ) => TicketTypePromise;
+  deleteTicketType: (where: TicketTypeWhereUniqueInput) => TicketTypePromise;
+  deleteManyTicketTypes: (where?: TicketTypeWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (
     args: { data: UserUpdateInput; where: UserWhereUniqueInput }
@@ -90,6 +346,24 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  checkIn: (
+    where?: CheckInSubscriptionWhereInput
+  ) => CheckInSubscriptionPayloadSubscription;
+  community: (
+    where?: CommunitySubscriptionWhereInput
+  ) => CommunitySubscriptionPayloadSubscription;
+  communityOwner: (
+    where?: CommunityOwnerSubscriptionWhereInput
+  ) => CommunityOwnerSubscriptionPayloadSubscription;
+  event: (
+    where?: EventSubscriptionWhereInput
+  ) => EventSubscriptionPayloadSubscription;
+  participant: (
+    where?: ParticipantSubscriptionWhereInput
+  ) => ParticipantSubscriptionPayloadSubscription;
+  ticketType: (
+    where?: TicketTypeSubscriptionWhereInput
+  ) => TicketTypeSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -102,6 +376,82 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type ParticipantStatus =
+  | "REGISTERED"
+  | "ATTENDING"
+  | "CANCEL_WAITING"
+  | "CANCELED";
+
+export type CheckInOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type CommunityOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type CommunityOwnerOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type EventOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "openedAt_ASC"
+  | "openedAt_DESC"
+  | "closedAt_ASC"
+  | "closedAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ParticipantOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "status_ASC"
+  | "status_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type TicketTypeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "registrationCapacity_ASC"
+  | "registrationCapacity_DESC"
+  | "registrationFee_ASC"
+  | "registrationFee_DESC"
+  | "registrationOpenedAt_ASC"
+  | "registrationOpenedAt_DESC"
+  | "registrationClosedAt_ASC"
+  | "registrationClosedAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -119,10 +469,402 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserCreateInput {
-  uid: String;
+export interface TicketTypeCreateOneInput {
+  create?: TicketTypeCreateInput;
+  connect?: TicketTypeWhereUniqueInput;
+}
+
+export type CheckInWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export type ParticipantWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface ParticipantUpdateDataInput {
+  ticketType?: TicketTypeUpdateOneRequiredInput;
+  user?: UserUpdateOneRequiredInput;
+  status?: ParticipantStatus;
+}
+
+export interface ParticipantUpsertNestedInput {
+  update: ParticipantUpdateDataInput;
+  create: ParticipantCreateInput;
+}
+
+export interface CommunityCreateInput {
   name: String;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface TicketTypeWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  event?: EventWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  registrationCapacity?: Int;
+  registrationCapacity_not?: Int;
+  registrationCapacity_in?: Int[] | Int;
+  registrationCapacity_not_in?: Int[] | Int;
+  registrationCapacity_lt?: Int;
+  registrationCapacity_lte?: Int;
+  registrationCapacity_gt?: Int;
+  registrationCapacity_gte?: Int;
+  registrationFee?: Int;
+  registrationFee_not?: Int;
+  registrationFee_in?: Int[] | Int;
+  registrationFee_not_in?: Int[] | Int;
+  registrationFee_lt?: Int;
+  registrationFee_lte?: Int;
+  registrationFee_gt?: Int;
+  registrationFee_gte?: Int;
+  registrationOpenedAt?: DateTimeInput;
+  registrationOpenedAt_not?: DateTimeInput;
+  registrationOpenedAt_in?: DateTimeInput[] | DateTimeInput;
+  registrationOpenedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  registrationOpenedAt_lt?: DateTimeInput;
+  registrationOpenedAt_lte?: DateTimeInput;
+  registrationOpenedAt_gt?: DateTimeInput;
+  registrationOpenedAt_gte?: DateTimeInput;
+  registrationClosedAt?: DateTimeInput;
+  registrationClosedAt_not?: DateTimeInput;
+  registrationClosedAt_in?: DateTimeInput[] | DateTimeInput;
+  registrationClosedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  registrationClosedAt_lt?: DateTimeInput;
+  registrationClosedAt_lte?: DateTimeInput;
+  registrationClosedAt_gt?: DateTimeInput;
+  registrationClosedAt_gte?: DateTimeInput;
+  AND?: TicketTypeWhereInput[] | TicketTypeWhereInput;
+  OR?: TicketTypeWhereInput[] | TicketTypeWhereInput;
+  NOT?: TicketTypeWhereInput[] | TicketTypeWhereInput;
+}
+
+export interface UserUpdateDataInput {
+  uid?: String;
+  name?: String;
   picture?: String;
+}
+
+export interface CommunityWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: CommunityWhereInput[] | CommunityWhereInput;
+  OR?: CommunityWhereInput[] | CommunityWhereInput;
+  NOT?: CommunityWhereInput[] | CommunityWhereInput;
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput;
+  update?: UserUpdateDataInput;
+  upsert?: UserUpsertNestedInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export type TicketTypeWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface ParticipantSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ParticipantWhereInput;
+  AND?: ParticipantSubscriptionWhereInput[] | ParticipantSubscriptionWhereInput;
+  OR?: ParticipantSubscriptionWhereInput[] | ParticipantSubscriptionWhereInput;
+  NOT?: ParticipantSubscriptionWhereInput[] | ParticipantSubscriptionWhereInput;
+}
+
+export interface TicketTypeUpsertNestedInput {
+  update: TicketTypeUpdateDataInput;
+  create: TicketTypeCreateInput;
+}
+
+export interface CommunityOwnerSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CommunityOwnerWhereInput;
+  AND?:
+    | CommunityOwnerSubscriptionWhereInput[]
+    | CommunityOwnerSubscriptionWhereInput;
+  OR?:
+    | CommunityOwnerSubscriptionWhereInput[]
+    | CommunityOwnerSubscriptionWhereInput;
+  NOT?:
+    | CommunityOwnerSubscriptionWhereInput[]
+    | CommunityOwnerSubscriptionWhereInput;
+}
+
+export interface EventUpsertNestedInput {
+  update: EventUpdateDataInput;
+  create: EventCreateInput;
+}
+
+export type CommunityWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface CommunityUpsertNestedInput {
+  update: CommunityUpdateDataInput;
+  create: CommunityCreateInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  uid?: String;
+  name?: String;
+  picture?: String;
+}
+
+export interface CommunityUpdateDataInput {
+  name?: String;
+}
+
+export interface TicketTypeUpdateManyMutationInput {
+  name?: String;
+  registrationCapacity?: Int;
+  registrationFee?: Int;
+  registrationOpenedAt?: DateTimeInput;
+  registrationClosedAt?: DateTimeInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface TicketTypeUpdateInput {
+  event?: EventUpdateOneRequiredInput;
+  name?: String;
+  registrationCapacity?: Int;
+  registrationFee?: Int;
+  registrationOpenedAt?: DateTimeInput;
+  registrationClosedAt?: DateTimeInput;
+}
+
+export interface CommunityUpdateOneRequiredInput {
+  create?: CommunityCreateInput;
+  update?: CommunityUpdateDataInput;
+  upsert?: CommunityUpsertNestedInput;
+  connect?: CommunityWhereUniqueInput;
+}
+
+export interface ParticipantUpdateManyMutationInput {
+  status?: ParticipantStatus;
+}
+
+export interface EventUpdateDataInput {
+  community?: CommunityUpdateOneRequiredInput;
+  name?: String;
+  description?: String;
+  openedAt?: DateTimeInput;
+  closedAt?: DateTimeInput;
+}
+
+export interface EventUpdateManyMutationInput {
+  name?: String;
+  description?: String;
+  openedAt?: DateTimeInput;
+  closedAt?: DateTimeInput;
+}
+
+export interface EventUpdateOneRequiredInput {
+  create?: EventCreateInput;
+  update?: EventUpdateDataInput;
+  upsert?: EventUpsertNestedInput;
+  connect?: EventWhereUniqueInput;
+}
+
+export type EventWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TicketTypeUpdateDataInput {
+  event?: EventUpdateOneRequiredInput;
+  name?: String;
+  registrationCapacity?: Int;
+  registrationFee?: Int;
+  registrationOpenedAt?: DateTimeInput;
+  registrationClosedAt?: DateTimeInput;
+}
+
+export interface CommunityOwnerCreateInput {
+  user: UserCreateOneInput;
+}
+
+export interface CommunityUpdateInput {
+  name?: String;
+}
+
+export interface EventWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  community?: CommunityWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  openedAt?: DateTimeInput;
+  openedAt_not?: DateTimeInput;
+  openedAt_in?: DateTimeInput[] | DateTimeInput;
+  openedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  openedAt_lt?: DateTimeInput;
+  openedAt_lte?: DateTimeInput;
+  openedAt_gt?: DateTimeInput;
+  openedAt_gte?: DateTimeInput;
+  closedAt?: DateTimeInput;
+  closedAt_not?: DateTimeInput;
+  closedAt_in?: DateTimeInput[] | DateTimeInput;
+  closedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  closedAt_lt?: DateTimeInput;
+  closedAt_lte?: DateTimeInput;
+  closedAt_gt?: DateTimeInput;
+  closedAt_gte?: DateTimeInput;
+  AND?: EventWhereInput[] | EventWhereInput;
+  OR?: EventWhereInput[] | EventWhereInput;
+  NOT?: EventWhereInput[] | EventWhereInput;
+}
+
+export interface CheckInCreateInput {
+  participant: ParticipantCreateOneInput;
+}
+
+export interface TicketTypeSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TicketTypeWhereInput;
+  AND?: TicketTypeSubscriptionWhereInput[] | TicketTypeSubscriptionWhereInput;
+  OR?: TicketTypeSubscriptionWhereInput[] | TicketTypeSubscriptionWhereInput;
+  NOT?: TicketTypeSubscriptionWhereInput[] | TicketTypeSubscriptionWhereInput;
+}
+
+export interface ParticipantCreateOneInput {
+  create?: ParticipantCreateInput;
+  connect?: ParticipantWhereUniqueInput;
+}
+
+export interface CommunitySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CommunityWhereInput;
+  AND?: CommunitySubscriptionWhereInput[] | CommunitySubscriptionWhereInput;
+  OR?: CommunitySubscriptionWhereInput[] | CommunitySubscriptionWhereInput;
+  NOT?: CommunitySubscriptionWhereInput[] | CommunitySubscriptionWhereInput;
+}
+
+export interface ParticipantCreateInput {
+  ticketType: TicketTypeCreateOneInput;
+  user: UserCreateOneInput;
+  status: ParticipantStatus;
 }
 
 export interface UserUpdateInput {
@@ -131,10 +873,66 @@ export interface UserUpdateInput {
   picture?: String;
 }
 
-export interface UserUpdateManyMutationInput {
-  uid?: String;
+export interface TicketTypeUpdateOneRequiredInput {
+  create?: TicketTypeCreateInput;
+  update?: TicketTypeUpdateDataInput;
+  upsert?: TicketTypeUpsertNestedInput;
+  connect?: TicketTypeWhereUniqueInput;
+}
+
+export interface CommunityOwnerWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  user?: UserWhereInput;
+  AND?: CommunityOwnerWhereInput[] | CommunityOwnerWhereInput;
+  OR?: CommunityOwnerWhereInput[] | CommunityOwnerWhereInput;
+  NOT?: CommunityOwnerWhereInput[] | CommunityOwnerWhereInput;
+}
+
+export interface TicketTypeCreateInput {
+  event: EventCreateOneInput;
+  name: String;
+  registrationCapacity: Int;
+  registrationFee: Int;
+  registrationOpenedAt: DateTimeInput;
+  registrationClosedAt: DateTimeInput;
+}
+
+export interface EventUpdateInput {
+  community?: CommunityUpdateOneRequiredInput;
   name?: String;
-  picture?: String;
+  description?: String;
+  openedAt?: DateTimeInput;
+  closedAt?: DateTimeInput;
+}
+
+export interface EventCreateOneInput {
+  create?: EventCreateInput;
+  connect?: EventWhereUniqueInput;
+}
+
+export interface CommunityUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface EventCreateInput {
+  community: CommunityCreateOneInput;
+  name: String;
+  description?: String;
+  openedAt: DateTimeInput;
+  closedAt: DateTimeInput;
 }
 
 export interface UserWhereInput {
@@ -199,56 +997,118 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface UserSubscriptionWhereInput {
+export interface CommunityCreateOneInput {
+  create?: CommunityCreateInput;
+  connect?: CommunityWhereUniqueInput;
+}
+
+export interface CheckInSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  node?: CheckInWhereInput;
+  AND?: CheckInSubscriptionWhereInput[] | CheckInSubscriptionWhereInput;
+  OR?: CheckInSubscriptionWhereInput[] | CheckInSubscriptionWhereInput;
+  NOT?: CheckInSubscriptionWhereInput[] | CheckInSubscriptionWhereInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export interface CheckInWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  participant?: ParticipantWhereInput;
+  AND?: CheckInWhereInput[] | CheckInWhereInput;
+  OR?: CheckInWhereInput[] | CheckInWhereInput;
+  NOT?: CheckInWhereInput[] | CheckInWhereInput;
+}
+
+export interface ParticipantUpdateInput {
+  ticketType?: TicketTypeUpdateOneRequiredInput;
+  user?: UserUpdateOneRequiredInput;
+  status?: ParticipantStatus;
+}
+
+export interface ParticipantUpdateOneRequiredInput {
+  create?: ParticipantCreateInput;
+  update?: ParticipantUpdateDataInput;
+  upsert?: ParticipantUpsertNestedInput;
+  connect?: ParticipantWhereUniqueInput;
+}
+
+export interface CheckInUpdateInput {
+  participant?: ParticipantUpdateOneRequiredInput;
+}
+
+export interface UserCreateInput {
+  uid: String;
+  name: String;
+  picture?: String;
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface CommunityOwnerUpdateInput {
+  user?: UserUpdateOneRequiredInput;
+}
+
+export type CommunityOwnerWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
-  uid?: String;
 }>;
+
+export interface EventSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: EventWhereInput;
+  AND?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
+  OR?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
+  NOT?: EventSubscriptionWhereInput[] | EventSubscriptionWhereInput;
+}
+
+export interface ParticipantWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  ticketType?: TicketTypeWhereInput;
+  user?: UserWhereInput;
+  status?: ParticipantStatus;
+  status_not?: ParticipantStatus;
+  status_in?: ParticipantStatus[] | ParticipantStatus;
+  status_not_in?: ParticipantStatus[] | ParticipantStatus;
+  AND?: ParticipantWhereInput[] | ParticipantWhereInput;
+  OR?: ParticipantWhereInput[] | ParticipantWhereInput;
+  NOT?: ParticipantWhereInput[] | ParticipantWhereInput;
+}
 
 export interface NodeNode {
   id: ID_Output;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface UserPreviousValues {
@@ -276,6 +1136,64 @@ export interface UserPreviousValuesSubscription
   picture: () => Promise<AsyncIterator<String>>;
 }
 
+export interface AggregateCommunity {
+  count: Int;
+}
+
+export interface AggregateCommunityPromise
+  extends Promise<AggregateCommunity>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCommunitySubscription
+  extends Promise<AsyncIterator<AggregateCommunity>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface User {
+  id: ID_Output;
+  uid: String;
+  name: String;
+  picture?: String;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  name: () => Promise<String>;
+  picture: () => Promise<String>;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  picture: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CommunityEdge {
+  node: Community;
+  cursor: String;
+}
+
+export interface CommunityEdgePromise
+  extends Promise<CommunityEdge>,
+    Fragmentable {
+  node: <T = CommunityPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CommunityEdgeSubscription
+  extends Promise<AsyncIterator<CommunityEdge>>,
+    Fragmentable {
+  node: <T = CommunitySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface UserEdge {
   node: User;
   cursor: String;
@@ -291,6 +1209,789 @@ export interface UserEdgeSubscription
     Fragmentable {
   node: <T = UserSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CommunityConnection {
+  pageInfo: PageInfo;
+  edges: CommunityEdge[];
+}
+
+export interface CommunityConnectionPromise
+  extends Promise<CommunityConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CommunityEdge>>() => T;
+  aggregate: <T = AggregateCommunityPromise>() => T;
+}
+
+export interface CommunityConnectionSubscription
+  extends Promise<AsyncIterator<CommunityConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CommunityEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCommunitySubscription>() => T;
+}
+
+export interface Participant {
+  id: ID_Output;
+  status: ParticipantStatus;
+}
+
+export interface ParticipantPromise extends Promise<Participant>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  ticketType: <T = TicketTypePromise>() => T;
+  user: <T = UserPromise>() => T;
+  status: () => Promise<ParticipantStatus>;
+}
+
+export interface ParticipantSubscription
+  extends Promise<AsyncIterator<Participant>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  ticketType: <T = TicketTypeSubscription>() => T;
+  user: <T = UserSubscription>() => T;
+  status: () => Promise<AsyncIterator<ParticipantStatus>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface CheckInConnection {
+  pageInfo: PageInfo;
+  edges: CheckInEdge[];
+}
+
+export interface CheckInConnectionPromise
+  extends Promise<CheckInConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CheckInEdge>>() => T;
+  aggregate: <T = AggregateCheckInPromise>() => T;
+}
+
+export interface CheckInConnectionSubscription
+  extends Promise<AsyncIterator<CheckInConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CheckInEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCheckInSubscription>() => T;
+}
+
+export interface AggregateTicketType {
+  count: Int;
+}
+
+export interface AggregateTicketTypePromise
+  extends Promise<AggregateTicketType>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTicketTypeSubscription
+  extends Promise<AsyncIterator<AggregateTicketType>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface TicketTypeEdge {
+  node: TicketType;
+  cursor: String;
+}
+
+export interface TicketTypeEdgePromise
+  extends Promise<TicketTypeEdge>,
+    Fragmentable {
+  node: <T = TicketTypePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TicketTypeEdgeSubscription
+  extends Promise<AsyncIterator<TicketTypeEdge>>,
+    Fragmentable {
+  node: <T = TicketTypeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TicketTypeConnection {
+  pageInfo: PageInfo;
+  edges: TicketTypeEdge[];
+}
+
+export interface TicketTypeConnectionPromise
+  extends Promise<TicketTypeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TicketTypeEdge>>() => T;
+  aggregate: <T = AggregateTicketTypePromise>() => T;
+}
+
+export interface TicketTypeConnectionSubscription
+  extends Promise<AsyncIterator<TicketTypeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TicketTypeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTicketTypeSubscription>() => T;
+}
+
+export interface AggregateParticipant {
+  count: Int;
+}
+
+export interface AggregateParticipantPromise
+  extends Promise<AggregateParticipant>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateParticipantSubscription
+  extends Promise<AsyncIterator<AggregateParticipant>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CheckIn {
+  id: ID_Output;
+}
+
+export interface CheckInPromise extends Promise<CheckIn>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  participant: <T = ParticipantPromise>() => T;
+}
+
+export interface CheckInSubscription
+  extends Promise<AsyncIterator<CheckIn>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  participant: <T = ParticipantSubscription>() => T;
+}
+
+export interface ParticipantConnection {
+  pageInfo: PageInfo;
+  edges: ParticipantEdge[];
+}
+
+export interface ParticipantConnectionPromise
+  extends Promise<ParticipantConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ParticipantEdge>>() => T;
+  aggregate: <T = AggregateParticipantPromise>() => T;
+}
+
+export interface ParticipantConnectionSubscription
+  extends Promise<AsyncIterator<ParticipantConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ParticipantEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateParticipantSubscription>() => T;
+}
+
+export interface CheckInSubscriptionPayload {
+  mutation: MutationType;
+  node: CheckIn;
+  updatedFields: String[];
+  previousValues: CheckInPreviousValues;
+}
+
+export interface CheckInSubscriptionPayloadPromise
+  extends Promise<CheckInSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CheckInPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CheckInPreviousValuesPromise>() => T;
+}
+
+export interface CheckInSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CheckInSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CheckInSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CheckInPreviousValuesSubscription>() => T;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface CheckInPreviousValues {
+  id: ID_Output;
+}
+
+export interface CheckInPreviousValuesPromise
+  extends Promise<CheckInPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+}
+
+export interface CheckInPreviousValuesSubscription
+  extends Promise<AsyncIterator<CheckInPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+}
+
+export interface AggregateEvent {
+  count: Int;
+}
+
+export interface AggregateEventPromise
+  extends Promise<AggregateEvent>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateEventSubscription
+  extends Promise<AsyncIterator<AggregateEvent>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregateCheckIn {
+  count: Int;
+}
+
+export interface AggregateCheckInPromise
+  extends Promise<AggregateCheckIn>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCheckInSubscription
+  extends Promise<AsyncIterator<AggregateCheckIn>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface EventConnection {
+  pageInfo: PageInfo;
+  edges: EventEdge[];
+}
+
+export interface EventConnectionPromise
+  extends Promise<EventConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<EventEdge>>() => T;
+  aggregate: <T = AggregateEventPromise>() => T;
+}
+
+export interface EventConnectionSubscription
+  extends Promise<AsyncIterator<EventConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<EventEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateEventSubscription>() => T;
+}
+
+export interface CommunitySubscriptionPayload {
+  mutation: MutationType;
+  node: Community;
+  updatedFields: String[];
+  previousValues: CommunityPreviousValues;
+}
+
+export interface CommunitySubscriptionPayloadPromise
+  extends Promise<CommunitySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CommunityPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CommunityPreviousValuesPromise>() => T;
+}
+
+export interface CommunitySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CommunitySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CommunitySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CommunityPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateCommunityOwner {
+  count: Int;
+}
+
+export interface AggregateCommunityOwnerPromise
+  extends Promise<AggregateCommunityOwner>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCommunityOwnerSubscription
+  extends Promise<AsyncIterator<AggregateCommunityOwner>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CommunityPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface CommunityPreviousValuesPromise
+  extends Promise<CommunityPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface CommunityPreviousValuesSubscription
+  extends Promise<AsyncIterator<CommunityPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CommunityOwnerConnection {
+  pageInfo: PageInfo;
+  edges: CommunityOwnerEdge[];
+}
+
+export interface CommunityOwnerConnectionPromise
+  extends Promise<CommunityOwnerConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CommunityOwnerEdge>>() => T;
+  aggregate: <T = AggregateCommunityOwnerPromise>() => T;
+}
+
+export interface CommunityOwnerConnectionSubscription
+  extends Promise<AsyncIterator<CommunityOwnerConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CommunityOwnerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCommunityOwnerSubscription>() => T;
+}
+
+export interface CheckInEdge {
+  node: CheckIn;
+  cursor: String;
+}
+
+export interface CheckInEdgePromise extends Promise<CheckInEdge>, Fragmentable {
+  node: <T = CheckInPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CheckInEdgeSubscription
+  extends Promise<AsyncIterator<CheckInEdge>>,
+    Fragmentable {
+  node: <T = CheckInSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CommunityOwner {
+  id: ID_Output;
+}
+
+export interface CommunityOwnerPromise
+  extends Promise<CommunityOwner>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+}
+
+export interface CommunityOwnerSubscription
+  extends Promise<AsyncIterator<CommunityOwner>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user: <T = UserSubscription>() => T;
+}
+
+export interface CommunityOwnerSubscriptionPayload {
+  mutation: MutationType;
+  node: CommunityOwner;
+  updatedFields: String[];
+  previousValues: CommunityOwnerPreviousValues;
+}
+
+export interface CommunityOwnerSubscriptionPayloadPromise
+  extends Promise<CommunityOwnerSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CommunityOwnerPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CommunityOwnerPreviousValuesPromise>() => T;
+}
+
+export interface CommunityOwnerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CommunityOwnerSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CommunityOwnerSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CommunityOwnerPreviousValuesSubscription>() => T;
+}
+
+export interface TicketType {
+  id: ID_Output;
+  name: String;
+  registrationCapacity: Int;
+  registrationFee: Int;
+  registrationOpenedAt: DateTimeOutput;
+  registrationClosedAt: DateTimeOutput;
+}
+
+export interface TicketTypePromise extends Promise<TicketType>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  event: <T = EventPromise>() => T;
+  name: () => Promise<String>;
+  registrationCapacity: () => Promise<Int>;
+  registrationFee: () => Promise<Int>;
+  registrationOpenedAt: () => Promise<DateTimeOutput>;
+  registrationClosedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TicketTypeSubscription
+  extends Promise<AsyncIterator<TicketType>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  event: <T = EventSubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  registrationCapacity: () => Promise<AsyncIterator<Int>>;
+  registrationFee: () => Promise<AsyncIterator<Int>>;
+  registrationOpenedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  registrationClosedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface CommunityOwnerPreviousValues {
+  id: ID_Output;
+}
+
+export interface CommunityOwnerPreviousValuesPromise
+  extends Promise<CommunityOwnerPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+}
+
+export interface CommunityOwnerPreviousValuesSubscription
+  extends Promise<AsyncIterator<CommunityOwnerPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+}
+
+export interface Event {
+  id: ID_Output;
+  name: String;
+  description?: String;
+  openedAt: DateTimeOutput;
+  closedAt: DateTimeOutput;
+}
+
+export interface EventPromise extends Promise<Event>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  community: <T = CommunityPromise>() => T;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  openedAt: () => Promise<DateTimeOutput>;
+  closedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface EventSubscription
+  extends Promise<AsyncIterator<Event>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  community: <T = CommunitySubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  openedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  closedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface TicketTypeSubscriptionPayload {
+  mutation: MutationType;
+  node: TicketType;
+  updatedFields: String[];
+  previousValues: TicketTypePreviousValues;
+}
+
+export interface TicketTypeSubscriptionPayloadPromise
+  extends Promise<TicketTypeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TicketTypePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TicketTypePreviousValuesPromise>() => T;
+}
+
+export interface TicketTypeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TicketTypeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TicketTypeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TicketTypePreviousValuesSubscription>() => T;
+}
+
+export interface EventEdge {
+  node: Event;
+  cursor: String;
+}
+
+export interface EventEdgePromise extends Promise<EventEdge>, Fragmentable {
+  node: <T = EventPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface EventEdgeSubscription
+  extends Promise<AsyncIterator<EventEdge>>,
+    Fragmentable {
+  node: <T = EventSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EventSubscriptionPayload {
+  mutation: MutationType;
+  node: Event;
+  updatedFields: String[];
+  previousValues: EventPreviousValues;
+}
+
+export interface EventSubscriptionPayloadPromise
+  extends Promise<EventSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = EventPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = EventPreviousValuesPromise>() => T;
+}
+
+export interface EventSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<EventSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = EventSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = EventPreviousValuesSubscription>() => T;
+}
+
+export interface CommunityOwnerEdge {
+  node: CommunityOwner;
+  cursor: String;
+}
+
+export interface CommunityOwnerEdgePromise
+  extends Promise<CommunityOwnerEdge>,
+    Fragmentable {
+  node: <T = CommunityOwnerPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CommunityOwnerEdgeSubscription
+  extends Promise<AsyncIterator<CommunityOwnerEdge>>,
+    Fragmentable {
+  node: <T = CommunityOwnerSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ParticipantPreviousValues {
+  id: ID_Output;
+  status: ParticipantStatus;
+}
+
+export interface ParticipantPreviousValuesPromise
+  extends Promise<ParticipantPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  status: () => Promise<ParticipantStatus>;
+}
+
+export interface ParticipantPreviousValuesSubscription
+  extends Promise<AsyncIterator<ParticipantPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  status: () => Promise<AsyncIterator<ParticipantStatus>>;
+}
+
+export interface ParticipantSubscriptionPayload {
+  mutation: MutationType;
+  node: Participant;
+  updatedFields: String[];
+  previousValues: ParticipantPreviousValues;
+}
+
+export interface ParticipantSubscriptionPayloadPromise
+  extends Promise<ParticipantSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ParticipantPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ParticipantPreviousValuesPromise>() => T;
+}
+
+export interface ParticipantSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ParticipantSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ParticipantSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ParticipantPreviousValuesSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface EventPreviousValues {
+  id: ID_Output;
+  name: String;
+  description?: String;
+  openedAt: DateTimeOutput;
+  closedAt: DateTimeOutput;
+}
+
+export interface EventPreviousValuesPromise
+  extends Promise<EventPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  openedAt: () => Promise<DateTimeOutput>;
+  closedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface EventPreviousValuesSubscription
+  extends Promise<AsyncIterator<EventPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  openedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  closedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ParticipantEdge {
+  node: Participant;
+  cursor: String;
+}
+
+export interface ParticipantEdgePromise
+  extends Promise<ParticipantEdge>,
+    Fragmentable {
+  node: <T = ParticipantPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ParticipantEdgeSubscription
+  extends Promise<AsyncIterator<ParticipantEdge>>,
+    Fragmentable {
+  node: <T = ParticipantSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TicketTypePreviousValues {
+  id: ID_Output;
+  name: String;
+  registrationCapacity: Int;
+  registrationFee: Int;
+  registrationOpenedAt: DateTimeOutput;
+  registrationClosedAt: DateTimeOutput;
+}
+
+export interface TicketTypePreviousValuesPromise
+  extends Promise<TicketTypePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  registrationCapacity: () => Promise<Int>;
+  registrationFee: () => Promise<Int>;
+  registrationOpenedAt: () => Promise<DateTimeOutput>;
+  registrationClosedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TicketTypePreviousValuesSubscription
+  extends Promise<AsyncIterator<TicketTypePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  registrationCapacity: () => Promise<AsyncIterator<Int>>;
+  registrationFee: () => Promise<AsyncIterator<Int>>;
+  registrationOpenedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  registrationClosedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface Community {
+  id: ID_Output;
+  name: String;
+}
+
+export interface CommunityPromise extends Promise<Community>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface CommunitySubscription
+  extends Promise<AsyncIterator<Community>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -318,79 +2019,15 @@ export interface UserSubscriptionPayloadSubscription
   previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface User {
-  id: ID_Output;
-  uid: String;
-  name: String;
-  picture?: String;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  name: () => Promise<String>;
-  picture: () => Promise<String>;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  picture: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+DateTime scalar output type, which is always a string
 */
-export type String = string;
-
-export type Long = string;
+export type DateTimeOutput = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -398,10 +2035,17 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 export type ID_Input = string | number;
 export type ID_Output = string;
 
+export type Long = string;
+
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
@@ -413,6 +2057,34 @@ export type Boolean = boolean;
  */
 
 export const models: Model[] = [
+  {
+    name: "CheckIn",
+    embedded: false
+  },
+  {
+    name: "Community",
+    embedded: false
+  },
+  {
+    name: "CommunityOwner",
+    embedded: false
+  },
+  {
+    name: "Event",
+    embedded: false
+  },
+  {
+    name: "Participant",
+    embedded: false
+  },
+  {
+    name: "ParticipantStatus",
+    embedded: false
+  },
+  {
+    name: "TicketType",
+    embedded: false
+  },
   {
     name: "User",
     embedded: false
