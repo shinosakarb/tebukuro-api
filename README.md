@@ -12,7 +12,7 @@ $ cd tebukuro-api
 $ npm install
 ```
 
-## Run Prisma & Database
+## Start Prisma & Database
 
 ```
 $ cd prisma
