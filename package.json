@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:migrate": "cd ./prisma && npm run prisma:deploy && npm run prisma:generate",
+    "prisma:deploy": "npx prisma deploy",
+    "prisma:generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
